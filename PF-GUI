@@ -1,0 +1,433 @@
+--[
+I have made my GUI open source for people to LEARN esp's n shit. When I start updating with gun mods etc. It will no longer be private.
+
+Please, don't be a fucking skid. Use the source to LEARN. Thank you
+
+
+
+
+
+
+Also, Subscribe to https://youtube.com/iZestyYT
+I'm trying to hit 1k :)
+
+
+
+REEEE
+Peace.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]--
+
+
+
+
+
+
+
+if game.GameId == 113491250 then
+	for i, v in pairs(game.CoreGui:GetChildren()) do
+		if v.Name == "FluxLib" then
+			v:Destroy()
+		end
+	end
+
+	local espTog = false
+	local tagTog = false
+	local tracertog = false
+	local boxTog = false
+	local plrs = game:GetService("Players"):GetPlayers()
+	local bodyParts = {"Right Leg", "Left Leg", "Left Arm", "Right Arm", "Torso", "Head"}
+    local rgbTog = false
+	
+	function createESP(plr)
+		if espTog then
+			if workspace.Players:FindFirstChild(plr) then
+				local fldr = Instance.new("Folder", workspace.Players[plr])
+				fldr.Name = tostring(math.random(1, 999999))
+				wait(0.1)
+				for i, v in pairs(bodyParts) do
+					local a = Instance.new("BoxHandleAdornment", fldr)
+					game:GetService("RunService").Stepped:Connect(function()
+                        if rgbTog then
+                            a.Color3 = Color3.fromHSV(tick()%5/5,1,1)
+                        else
+                            if(game.Players:FindFirstChild(plr)) then
+                            	if(game.Players[plr].TeamColor ~= game.Players.LocalPlayer.TeamColor) then
+	                                a.Color3 = Color3.fromRGB(211, 47, 47)
+	                            else
+	                                a.Color3 = Color3.fromRGB(47, 211, 47)
+	                            end
+                            end
+                        end
+					end)
+					a.Size = workspace.Players[plr][v].Size + Vector3.new(0.1, 0.1, 0.1)
+					a.Adornee = workspace.Players[plr][v]
+					a.AlwaysOnTop = true
+					a.ZIndex = 5
+					a.Transparency = 0.5
+				end
+			end
+		end
+	end
+	
+	function createTracer(plr)
+		if tracertog then
+			if workspace.Players:FindFirstChild(plr) then
+				local a1 = Instance.new("Attachment", workspace.tracerBrick)
+				local a = Instance.new("Attachment", workspace.Players[plr].Torso)
+				local b = Instance.new("Beam", workspace.tracerBrick)
+				b.Transparency = NumberSequence.new(0.1)
+				b.Attachment0 = a1
+				b.Attachment1 = a
+				b.FaceCamera = true
+				b.Width0 = 0.01
+				b.Width1 = 0.01
+				if(game.Players[plr].TeamColor ~= game.Players.LocalPlayer.TeamColor) then
+					b.Color = ColorSequence.new(Color3.fromRGB(211, 47, 47))
+				else
+					b.Color = ColorSequence.new(Color3.fromRGB(47, 211, 47))
+				end
+			end
+		end
+	end
+	
+	function createNametag(plr)
+		if tagTog then
+			if workspace.Players:FindFirstChild(plr) then
+				local a = Instance.new("BillboardGui", workspace.Players[plr].Head)
+				a.Name = "nametag"
+				a.AlwaysOnTop = true
+				a.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+				a.Adornee = workspace.Players[plr].Head
+				a.Size = UDim2.new(2, 1, 2)
+				a.MaxDistance = math.huge
+				
+				local b = Instance.new("TextLabel", a)
+				b.Name = tostring(math.random(1, 999999))
+				b.Text = plr
+				b.Font = Enum.Font.SourceSans
+				b.Size = UDim2.new(0, 150, 0, 20)
+				b.Position = UDim2.new(0.5, -75, 1, -15)
+				b.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+				b.TextStrokeTransparency = 0.8
+				b.TextSize = 14
+				b.ZIndex = 5
+				b.BackgroundTransparency = 1
+				if(game.Players[plr].TeamColor ~= game.Players.LocalPlayer.TeamColor) then
+					b.TextColor3 = Color3.fromRGB(211, 47, 47)
+				else
+					b.TextColor3 = Color3.fromRGB(47, 211, 47)
+				end
+			end
+		end
+	end
+	
+	function createBoxESP(plr)
+		if boxTog then
+			if workspace.Players:FindFirstChild(plr) then
+				local a = Instance.new("BillboardGui", workspace.Players[plr].Torso)
+				a.Name = "BoxESP"
+				a.AlwaysOnTop = true
+				a.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+				a.Adornee = workspace.Players[plr].Torso
+				a.Size = UDim2.new(5, 1, 5)
+				a.MaxDistance = math.huge
+				
+				local f1 = Instance.new("Frame", a)
+				local f2 = Instance.new("Frame", a)
+				local f3 = Instance.new("Frame", a)
+				local f4 = Instance.new("Frame", a)
+				f1.Size = UDim2.new(0, 1, 1, 0)
+				f2.Size = UDim2.new(0, 1, 1, 0)
+				f3.Size = UDim2.new(1, 0, 0, 1)
+				f4.Size = UDim2.new(1, 0, 0, 1)
+				f1.Position = UDim2.new(0, 0, 0, 0)
+				f2.Position = UDim2.new(1, -1, 0, 0)
+				f3.Position = UDim2.new(0, 0, 0, 0)
+				f4.Position = UDim2.new(0, 0, 1, -1)
+				for i, v in pairs(a:GetChildren()) do
+					v.BorderSizePixel = 0
+					if game.Players[plr].TeamColor ~= game.Players.LocalPlayer.TeamColor then
+						v.BackgroundColor3 = Color3.fromRGB(211, 47, 47)
+					else
+						v.BackgroundColor3 = Color3.fromRGB(47, 211, 47)
+					end
+				end
+			end
+		end
+	end
+	
+	game.Players.PlayerAdded:Connect(function(plr)
+		plr.CharacterAdded:Connect(function()
+			if plr.Name ~= game.Players.LocalPlayer.Name then
+				if tagTog then
+					createNametag(plr.Name)
+				end
+				if espTog then
+					createESP(plr.Name)
+				end
+				if tracertog then
+					createTracer(plr.Name)
+				end
+				if boxTog then
+					createBoxESP(plr.Name)
+				end
+			end
+		end)
+	end)
+	
+	lib = loadstring(game:HttpGet"https://fluxteam.xyz/scripts/others/FluxLib.lua")()
+	 
+	local esps = lib:CreateWindow("ESP's")
+	
+	esps:AddToggle("Player Chams", function()
+		espTog = not espTog
+		if espTog then
+			for i, v in pairs(plrs) do
+				if v.Name ~= game.Players.LocalPlayer.Name then
+					createESP(v.Name)
+				end
+				
+				v.CharacterAdded:Connect(function()
+					if v.Name ~= game.Players.LocalPlayer.Name then
+						createESP(v.Name)
+					end
+				end)
+			end
+		else
+			for i, v in pairs(workspace.Players:GetDescendants()) do
+				if v:IsA("Folder") then
+					if v:FindFirstChildOfClass("BoxHandleAdornment") then
+						v:Destroy()		
+					end
+				end
+			end
+		end
+	end)
+
+    esps:AddToggle("Chams RGB", function()
+        rgbTog = not rgbTog
+    end)
+	
+	esps:AddToggle("Player Nametags", function()
+		tagTog = not tagTog
+		if tagTog then
+			for i, v in pairs(plrs) do
+				if v.Name ~= game.Players.LocalPlayer.Name then
+					createNametag(v.Name)
+				end
+				
+				v.CharacterAdded:Connect(function()
+					if v.Name ~= game.Players.LocalPlayer.Name then
+						createNametag(v.Name)
+					end
+				end)
+			end
+		else
+			for i, v in pairs(workspace.Players:GetDescendants()) do
+				if v:IsA("BillboardGui") and v.Name == "nametag" then
+					v:Destroy()
+				end
+			end
+		end
+	end)
+	
+	esps:AddToggle("Box ESP", function()
+		boxTog = not boxTog
+		if boxTog then
+			for i, v in pairs(plrs) do
+				if v.Name ~= game.Players.LocalPlayer.Name then
+					createBoxESP(v.Name)
+				end
+				
+				v.CharacterAdded:Connect(function()
+					if v.Name ~= game.Players.LocalPlayer.Name then
+						createBoxESP(v.Name)
+					end
+				end)
+			end
+		else
+			for i, v in pairs(workspace.Players:GetDescendants()) do
+				if v.Name == "BoxESP" and v:IsA("BillboardGui") then
+					v:Destroy()
+				end
+			end
+		end
+	end)
+	
+	esps:AddToggle("Tracers", function()
+		tracertog = not tracertog
+		if tracertog then
+			local tracerBrick = Instance.new("Part", workspace)
+			tracerBrick.Name = "tracerBrick"
+			tracerBrick.CanCollide = false
+			tracerBrick.Anchored = true
+			tracerBrick.Transparency = 1
+			workspace.tracerBrick.CFrame = workspace.CurrentCamera.CFrame - Vector3.new(0, 1, 0)
+			for i, v in pairs(plrs) do
+				if v.Name ~= game.Players.LocalPlayer.Name then
+					createTracer(v.Name)
+				end
+				
+				v.CharacterAdded:Connect(function()
+					if v.Name ~= game.Players.LocalPlayer.Name then
+						createTracer(v.Name)
+					end
+				end)
+			end
+		else
+			for i, v in pairs(workspace:GetChildren()) do
+				if v.Name == "tracerBrick" then
+					v:Destroy()
+				end
+			end
+		end
+	end)
+	
+	spawn(function()
+		workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
+			if workspace:FindFirstChild("tracerBrick") then
+				workspace.tracerBrick.CFrame = workspace.CurrentCamera.CFrame - Vector3.new(0, 1, 0)
+			end
+		end)
+	end)
+	
+	--// Gun
+	local gunTab = lib:CreateWindow("Gun Shit")
+	local gunRgbTog = false
+	
+	gunTab:AddToggle("Gun RGB", function()
+		gunRgbTog = not gunRgbTog
+	end)
+	
+	game:GetService("RunService").Stepped:Connect(function()
+		if gunRgbTog then
+			for i, v in pairs(workspace.Camera:GetChildren()) do 
+				for a, b in pairs(game.ReplicatedStorage.GunModels:GetChildren()) do 
+					if v.Name == b.Name then 
+						for c, d in pairs(v:GetChildren()) do 
+							if d:IsA("BasePart") then 
+								d.Color = Color3.fromHSV(tick()%5/5,1,1)
+								d.Material = Enum.Material.Neon
+							end
+						end
+					end
+				end
+			end
+		else
+			for i, v in pairs(workspace.Camera:GetChildren()) do 
+				for a, b in pairs(game.ReplicatedStorage.GunModels:GetChildren()) do 
+					if v.Name == b.Name then 
+						for c, d in pairs(v:GetChildren()) do 
+							if d:IsA("BasePart") then 
+								d.Color = Color3.fromRGB(50, 50, 50)
+								d.Material = Enum.Material.SmoothPlastic
+							end
+						end
+					end
+				end
+			end
+		end
+	end)
+	
+	--// Render
+	local render = lib:CreateWindow("Render")
+	
+	local crosshairTog = false
+	_G.num1 = 20
+	_G.num2 = 10
+	_G.HSV = 20
+	_G.Width = 2
+	_G.Length = 20
+	local color = Color3.fromRGB(200,200,200)
+	local crosshairRGB = false
+	render:AddToggle("Crosshair", function()
+		crosshairTog = not crosshairTog
+		if crosshairTog then
+			local gui = Instance.new("ScreenGui", game.CoreGui)
+			gui.Name = "Crosshairs"
+			local f = Instance.new("Frame", gui)
+			local t = Instance.new("Frame", f)
+			local b = Instance.new("Frame", f)
+			local r = Instance.new("Frame", f)
+			local l = Instance.new("Frame", f)
+			
+			f.BackgroundTransparency = 1
+			t.BorderSizePixel = 0
+			b.BorderSizePixel = 0
+			r.BorderSizePixel = 0
+			l.BorderSizePixel = 0
+			
+			
+			f.Position = UDim2.new(0.5, -50, 0.5, -70)
+			
+			game:GetService("RunService").Stepped:Connect(function()
+				if crosshairRGB then
+					color = Color3.fromHSV(tick()%5/5,1,1)
+				else
+					color = Color3.fromHSV(_G.HSV/100, 1, 1)
+				end
+				t.BackgroundColor3 = color
+				b.BackgroundColor3 = color
+				r.BackgroundColor3 = color
+				l.BackgroundColor3 = color
+				f.Size = UDim2.new(0, 100, 0, 100)
+				t.Size = UDim2.new(0, _G.Width, 0, _G.Length)
+				b.Size = UDim2.new(0, _G.Width, 0, _G.Length)
+				r.Size = UDim2.new(0, _G.Length, 0, _G.Width)
+				l.Size = UDim2.new(0, _G.Length, 0, _G.Width)
+				t.Position = UDim2.new(0.5, -(_G.Width / 2), 0.5, -(_G.num1 + _G.Length) + 20)
+				b.Position = UDim2.new(0.5, -(_G.Width / 2), 0.5, _G.num2 - 10)
+				r.Position = UDim2.new(0.5, _G.num2 - 10, 0.5, -(_G.Width / 2))
+				l.Position = UDim2.new(0.5, -(_G.num1 + _G.Length) + 20, 0.5, -(_G.Width / 2))
+			end)
+		else
+			for i, v in pairs(game.CoreGui:GetChildren()) do
+				if v.Name == "Crosshairs" then
+					v:Destroy()
+				end
+			end
+		end
+	end)
+	
+	render:AddToggle("Crosshair RGB", function()
+		crosshairRGB = not crosshairRGB
+	end)
+	
+	render:AddSlider("Gap", 20, 100, 0, function(value)
+		_G.num1 = value
+		_G.num2 = value - 10
+	end)
+	
+	render:AddSlider("Color", 0, 100, 20, function(value)
+		_G.HSV = value
+	end)
+	
+	render:AddSlider("Width", 1, 40, 2, function(value)
+		_G.Width = value
+	end)
+	
+	render:AddSlider("Length", 1, 100, 20, function(value)
+		_G.Length = value
+	end)
+else
+	local a = Instance.new("Hint", workspace)
+	a.Text = "This script is Phantom Forces ONLY!"
+	wait(5)
+	a:Destroy()
+end
